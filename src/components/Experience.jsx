@@ -136,26 +136,21 @@ function ParticleStorm() {
       materialRef.current.uTime += delta
       materialRef.current.uAspect = state.viewport.aspect
 
-      // Device detection (simple check for touch/mobile capability)
-      const isMobile = window.matchMedia('(pointer: coarse)').matches
+      // "Grand Marvellous" Logic:
+      // Check for fine pointer (Mouse/Trackpad) to detect Desktop-like behavior
+      const hasFinePointer = window.matchMedia('(pointer: fine)').matches
 
-      // Detect if user is interacting (desktop mouse)
-      const isInteracting = state.pointer.x !== 0 || state.pointer.y !== 0
-
-      // "Grand Marvellous" Mobile Alternative:
-      // On Mobile -> ALWAYS Auto-Wander (Cosmic Pulse)
-      // On Desktop -> Auto-Wander only when idle
-      if (isMobile || !isInteracting) {
+      if (hasFinePointer) {
+        // Desktop/Laptop -> Always follow mouse with ZERO LAG
+        materialRef.current.uMouse.set(state.pointer.x, state.pointer.y)
+      } else {
+        // Mobile/Touch-only -> Auto-Wander (Cosmic Pulse)
         const time = state.clock.elapsedTime
-        const autoX = Math.sin(time * 0.5) * 0.4 // Slow sway X
-        const autoY = Math.cos(time * 0.3) * 0.3 // Slow sway Y
+        const autoX = Math.sin(time * 0.5) * 0.4
+        const autoY = Math.cos(time * 0.3) * 0.3
 
-        // Smoothly lerp towards auto position
         materialRef.current.uMouse.x += (autoX - materialRef.current.uMouse.x) * delta * 2.0
         materialRef.current.uMouse.y += (autoY - materialRef.current.uMouse.y) * delta * 2.0
-      } else {
-        // Direct control (Desktop Mouse)
-        materialRef.current.uMouse.set(state.pointer.x, state.pointer.y)
       }
     }
   })

@@ -13,7 +13,7 @@ export default function App() {
     <>
       {/* 3D Background */}
       <div className="fullscreen" style={{ zIndex: 0 }}>
-        <Canvas shadows camera={{ position: [0, 0, 5], fov: 45 }}>
+        <Canvas shadows camera={{ position: [0, 0, 5], fov: 45 }} eventSource={document.getElementById('root')} eventPrefix="client">
           <Suspense fallback={null}>
             <Experience />
           </Suspense>
