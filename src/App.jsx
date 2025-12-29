@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { HashRouter, Routes, Route } from 'react-router-dom'
 import { Suspense } from 'react'
 import Experience from './components/Experience'
 import UI from './components/UI'
@@ -21,7 +21,7 @@ export default function App() {
       </div>
 
       {/* UI Overlay */}
-      <BrowserRouter>
+      <HashRouter>
         <UI>
           <Routes>
             <Route path="/" element={<Home />} />
@@ -30,7 +30,7 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </UI>
-      </BrowserRouter>
+      </HashRouter>
     </>
   )
 }
