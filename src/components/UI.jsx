@@ -68,19 +68,9 @@ export default function UI({ children }) {
 
                 {/* Dynamic Content */}
                 <main className="ui-main">
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={location.pathname}
-                            variants={pageVariants}
-                            initial="initial"
-                            animate="animate"
-                            exit="exit"
-                            transition={{ duration: 0.4, ease: "anticipate" }}
-                            style={{ width: '100%', pointerEvents: 'auto' }}
-                        >
-                            {children}
-                        </motion.div>
-                    </AnimatePresence>
+                    <div style={{ width: '100%', pointerEvents: 'auto' }}>
+                        {children}
+                    </div>
                 </main>
 
                 {/* Footer / Status */}
